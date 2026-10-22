@@ -1,12 +1,28 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <View style={styles['clay-card']}>
-        <Text style={{ color: 'white', fontSize: 24, padding: 16 }}>Clay Card</Text>
+      <Image
+        source={require('@/assets/images/Welcome_guy.png')}
+        style={{ width: '100%', height: '70%' }}
+      />
+
+      <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{ color: 'black', fontSize: 32, paddingTop: 16 }}>Welcome to MiniLedger</Text>
+        <Text style={{ color: 'black', fontSize: 20, paddingTop: 2, textAlign: 'center' }}>
+          Dosti apni jagah, udhaari apni jagah.
+        </Text>
       </View>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
+
+      
+      <View style={[styles['clay-card'],{backgroundColor: '#9482db', width: '90%', justifyContent: 'center', alignItems: 'center', position: 'absolute', bottom: 112}]}>
+        <Text style={{ color: 'white', fontSize: 24, padding: 12 }}>Get Started →</Text>
+      </View>
+
+      <View style={[styles['clay-card'],{backgroundColor: '#988c98', width: '90%', justifyContent: 'center', alignItems: 'center', marginTop: 16, position: 'absolute', bottom: 32}]}>
+        <Text style={{ color: 'white', fontSize: 24, padding: 12 }}>Log in →</Text>
+      </View>
     </View>
   );
 }
@@ -14,12 +30,13 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#FAF9F6",
   },
   'clay-card': {
-    backgroundColor: '#7c5cff',
-    borderRadius: 32,
+    borderRadius: 24,
     boxShadow: [
       {
         offsetX: 8,
