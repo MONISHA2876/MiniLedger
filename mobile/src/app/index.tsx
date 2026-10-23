@@ -1,6 +1,10 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { useRouter } from "expo-router";
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import Button_full_len from "@/components/Button_full_len";
 
 export default function Index() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Image
@@ -9,20 +13,16 @@ export default function Index() {
       />
 
       <View style={{ justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{ color: 'black', fontSize: 32, paddingTop: 16 }}>Welcome to MiniLedger</Text>
+        <Text style={{ color: 'black', fontSize: 32, fontWeight: 'bold', paddingTop: 16 }}>Welcome to MiniLedger</Text>
         <Text style={{ color: 'black', fontSize: 20, paddingTop: 2, textAlign: 'center' }}>
           Dosti apni jagah, udhaari apni jagah.
         </Text>
       </View>
 
-      
-      <View style={[styles['clay-card'],{backgroundColor: '#9482db', width: '90%', justifyContent: 'center', alignItems: 'center', position: 'absolute', bottom: 112}]}>
-        <Text style={{ color: 'white', fontSize: 24, padding: 12 }}>Get Started →</Text>
-      </View>
+      <Button_full_len text="Get Started →" bgColor="#9482db" color="white" width="90%" route='/(auth)/signup' style={{position:'absolute', bottom: 112}} />
 
-      <View style={[styles['clay-card'],{backgroundColor: '#988c98', width: '90%', justifyContent: 'center', alignItems: 'center', marginTop: 16, position: 'absolute', bottom: 32}]}>
-        <Text style={{ color: 'white', fontSize: 24, padding: 12 }}>Log in →</Text>
-      </View>
+      <Button_full_len text="Log in →" bgColor="#988c98" color="white" width="90%" route='/(auth)/login' style={{ position: 'absolute', bottom: 32}} />
+
     </View>
   );
 }
