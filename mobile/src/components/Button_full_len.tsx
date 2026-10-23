@@ -3,18 +3,27 @@ import { Href, useRouter } from 'expo-router';
 
 type Props = {
     text: string;
-    route: Href;
+    route?: Href;
+    onPress?: () => void;
     bgColor: string;
     color: string;
     width?: string;
     style?: object;
 }
 
-export default function Button_full_len({ text, route, bgColor, color, width, style }: Props) {
+export default function Button_full_len({ text, route, onPress, bgColor, color, width, style }: Props) {
     const router = useRouter();
 
+    const handlePress = () => {
+        if (onPress) {
+            onPress();
+        } else if (route) {
+            router.navigate(route);
+        }
+    };
+
     return (
-    <Pressable onPress={()=>router.navigate(route)} style={[styles.clayCard,{backgroundColor: bgColor, width: width || '90%', justifyContent: 'center', alignItems: 'center', ...style}]}>
+    <Pressable onPress={handlePress} style={[styles.clayCard,{backgroundColor: bgColor, width: width || '90%', justifyContent: 'center', alignItems: 'center', ...style}]}>
         <Text style={{ color: color, fontSize: 24, padding: 12 }}>{text}</Text>
     </Pressable>
     );
