@@ -23,7 +23,7 @@ export default function SignUp() {
             <InputBox placeholder="Username" value={username} onChangeText={setUsername} />
             <InputBox placeholder="Mobile Number" keyboardType="phone-pad" value={mobileNumber} onChangeText={setMobileNumber} />
 
-            <Button_full_len text="Continue →" bgColor="#9482db" color="white" width="100%" route='/login' />
+            <Button_full_len text="Continue →" bgColor="#9482db" color="white" width="100%" route='/verify-otp' />
 
             <Text style={{ color: '#6f6f6f', fontSize: 16, paddingTop: 16, textAlign: 'center', marginHorizontal: 'auto' }}>
                 Already have an account? <Text style={{ color: '#9482db', fontSize: 16 }} onPress={() => router.navigate('/login')}>Log in</Text>
