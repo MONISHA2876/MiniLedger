@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
-import { Text, View, StyleSheet, Image, Pressable } from "react-native";
-import Button_full_len from "@/components/Button_full_len";
+import { Text, View, StyleSheet, Image } from "react-native";
+import Button_full_len from "../components/Button_full_len";
 
 export default function Index() {
   const router = useRouter();

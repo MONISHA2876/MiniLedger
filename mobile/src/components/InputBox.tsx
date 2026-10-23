@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     height: 64,
     marginTop: 24,
     borderRadius: 24,
-    backgroundColor: '#e9e6ea',
+    backgroundColor: '#eaeaea',
     justifyContent: 'center',
     boxShadow: [
       {
