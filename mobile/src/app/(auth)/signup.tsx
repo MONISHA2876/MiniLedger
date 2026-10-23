@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import InputBox from '@/components/InputBox';
 import Button_full_len from '@/components/Button_full_len';
+import BackTract_btn from '@/components/BackTract_btn';
 
 export default function SignUp() {
     const router = useRouter();
@@ -11,9 +12,7 @@ export default function SignUp() {
 
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => router.back()}>
-                <Text style={{ color: 'black', fontSize: 48, marginBottom: 16 }}>←</Text>
-            </Pressable>
+            <BackTract_btn />
             <Text style={{ color: 'black', fontSize: 32, fontWeight: 'bold' }}>Getting Started</Text>
             <Text style={{ color: '#6f6f6f', fontSize: 18, paddingTop: 8 }}>
                 Enter a username and mobile number to continue (^v^)
