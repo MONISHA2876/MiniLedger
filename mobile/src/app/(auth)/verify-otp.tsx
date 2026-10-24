@@ -84,10 +84,12 @@ export default function VerifyOtp() {
       setStatus('idle');
 
       const data = (await apiRequest('/api/auth/verify-otp', {
-        phone: mobile,
-        otp,
-        purpose,
-        ...(purpose === 'signup' ? { username } : {}),
+        body: {
+          phone: mobile,
+          otp,
+          purpose,
+          ...(purpose === 'signup' ? { username } : {}),
+        },
       })) as VerifyOtpResponse;
 
       if (!data.token) {
@@ -99,7 +101,7 @@ export default function VerifyOtp() {
       setStatus('right');
 
       timer.current = setTimeout(() => {
-        router.replace('/');
+        router.dismissTo('/(tabs)/dashboard');
       }, 500);
     } catch (error) {
       setStatus('wrong');

@@ -31,7 +31,7 @@ export default function Login() {
         setError('');
 
         await apiRequest('/api/auth/login', {
-        phone: mobileNumber,
+          body: { phone: mobileNumber },
         });
 
         router.navigate({

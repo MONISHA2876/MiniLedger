@@ -49,8 +49,10 @@ export default function SignUp() {
         setLoading(true);
 
         await apiRequest('/api/auth/signup', {
-        username: name,
-        phone: mobileNumber,
+          body: {
+            username: name,
+            phone: mobileNumber,
+          },
         });
 
         router.navigate({
