@@ -1,14 +1,16 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Alert } from 'react-native';
 import BackTract_btn from '@/components/BackTract_btn';
 import InputBox from '@/components/InputBox';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import Button_full_len from '@/components/Button_full_len';
+import { apiRequest } from '@/services/api';
 
 export default function Login() {
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (text: string) => {
 
@@ -17,17 +19,38 @@ export default function Login() {
     if (error) setError('');
   };
 
-  const handleContinue = () => {
+  
+  const handleContinue = async () => {
     if (!/^\d{10}$/.test(mobileNumber)) {
-      setError('Please enter a valid 10-digit mobile number');
-      return; // stay on the page
+        setError('Please enter a valid 10-digit mobile number');
+        return;
     }
 
-    router.navigate({
-      pathname: '/verify-otp',
-      params: { mobile: mobileNumber },
-    });
+    try {
+        setLoading(true);
+        setError('');
+
+        await apiRequest('/api/auth/login', {
+        phone: mobileNumber,
+        });
+
+        router.navigate({
+        pathname: '/verify-otp',
+        params: {
+            mobile: mobileNumber,
+            purpose: 'login',
+        },
+        });
+    } catch (error) {
+        Alert.alert(
+        'Login failed',
+        error instanceof Error ? error.message : 'Please try again.'
+        );
+    } finally {
+        setLoading(false);
+    }
   };
+
 
   return (
     <View style={styles.container}>
@@ -53,7 +76,7 @@ export default function Login() {
       {error !== '' && <Text style={styles.error}>⚠ {error}</Text>}
 
       <Button_full_len
-        text="Continue →"
+        text={loading ? "Continuing..." : "Continue →"}
         bgColor="#9482db"
         color="white"
         width="100%"

@@ -4,12 +4,15 @@ import { useRouter } from 'expo-router';
 import InputBox from '@/components/InputBox';
 import Button_full_len from '@/components/Button_full_len';
 import BackTract_btn from '@/components/BackTract_btn';
+import { Alert } from 'react-native';
+import { apiRequest } from '@/services/api';
 
 export default function SignUp() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [errors, setErrors] = useState<{ username?: string; mobile?: string }>({});
+  const [loading, setLoading] = useState(false);
 
   const handleUsernameChange = (text: string) => {
     setUsername(text);
@@ -23,30 +26,50 @@ export default function SignUp() {
     if (errors.mobile) setErrors((e) => ({ ...e, mobile: undefined }));
   };
 
-  const handleContinue = () => {
+    const handleContinue = async () => {
     const newErrors: { username?: string; mobile?: string } = {};
     const name = username.trim();
 
     if (name.length < 3) {
-      newErrors.username = 'Username must be at least 3 characters';
+        newErrors.username = 'Username must be at least 3 characters';
     } else if (!/^[a-zA-Z0-9_]+$/.test(name)) {
-      newErrors.username = 'Use only letters, numbers and underscores';
+        newErrors.username = 'Use only letters, numbers and underscores';
     }
 
     if (!/^\d{10}$/.test(mobileNumber)) {
-      newErrors.mobile = 'Please enter a valid 10-digit mobile number';
+        newErrors.mobile = 'Please enter a valid 10-digit mobile number';
     }
 
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return; 
+        setErrors(newErrors);
+        return;
     }
 
-    router.navigate({
-      pathname: '/verify-otp',
-      params: { username: name, mobile: mobileNumber },
-    });
-  };
+    try {
+        setLoading(true);
+
+        await apiRequest('/api/auth/signup', {
+        username: name,
+        phone: mobileNumber,
+        });
+
+        router.navigate({
+        pathname: '/verify-otp',
+        params: {
+            username: name,
+            mobile: mobileNumber,
+            purpose: 'signup',
+        },
+        });
+    } catch (error) {
+        Alert.alert(
+        'Signup failed',
+        error instanceof Error ? error.message : 'Please try again.'
+        );
+    } finally {
+        setLoading(false);
+    }
+    };
 
   return (
     <View style={styles.container}>
@@ -74,7 +97,7 @@ export default function SignUp() {
       {errors.mobile && <Text style={styles.error}>⚠ {errors.mobile}</Text>}
 
       <Button_full_len
-        text="Continue →"
+        text={loading ? "Continuing..." : "Continue →"}
         bgColor="#9482db"
         color="white"
         width="100%"
