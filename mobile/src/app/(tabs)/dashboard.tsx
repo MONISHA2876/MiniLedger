@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import {ActivityIndicator, Alert, Pressable, RefreshControl, ScrollView, StatusBar, StyleSheet, Text, View,} from 'react-native';
 import { useFocusEffect, useRouter, type Href } from 'expo-router';
 import { apiRequest } from '../../services/api';
+import { styles_ext } from '@/components/clay_card';
 
 const PURPLE = '#9482DB';
 const BG = '#F7F6FC';
@@ -125,7 +126,7 @@ export default function Dashboard() {
       <Text style={{marginTop: 32, fontWeight: 'bold', fontSize: 32, marginBottom: 16 }}>Dashboard</Text>
 
         {/* Total lent card */}
-        <View style={[styles.heroCard, styles.clayCard]}>
+        <View style={[styles.heroCard, styles_ext.clayCard]}>
           <View style={styles.heroTop}>
             <Text style={{color: '#F0EDFF', fontSize: 11, fontWeight: '700',letterSpacing: 1.1,}}>TOTAL MONEY LENT</Text>
             <View style={styles.heroIcon}>
@@ -155,7 +156,7 @@ export default function Dashboard() {
         </View>
 
         <View style={styles.summaryRow}>
-          <View style={[styles.summaryCard, styles.repaidCard, styles.clayCard]}>
+          <View style={[styles.summaryCard, styles.repaidCard, styles_ext.clayCardLight]}>
             <View style={[styles.smallIcon, { backgroundColor: '#DDF4E9' }]}>
               <Text style={{ color: GREEN, fontSize: 19 }}>✓</Text>
             </View>
@@ -165,7 +166,7 @@ export default function Dashboard() {
             </Text>
           </View>
 
-          <View style={[styles.summaryCard, styles.overdueCard, styles.clayCard]}>
+          <View style={[styles.summaryCard, styles.overdueCard, styles_ext.clayCardLight]}>
             <View style={[styles.smallIcon, { backgroundColor: '#FCE5E8' }]}>
               <Text style={{ color: RED, fontSize: 19 }}>!</Text>
             </View>
@@ -181,7 +182,7 @@ export default function Dashboard() {
           style={({ pressed }) => [
             styles.addButton,
             pressed && { opacity: 0.85 },
-            styles.clayCard,
+            styles_ext.clayCardLight,
           ]}
           onPress={() => router.push('/add-loan' as Href)}
         >
@@ -218,7 +219,7 @@ export default function Dashboard() {
             <Text style={styles.emptySubtitle}>Loading your loans...</Text>
           </View>
         ) : recentLoans.length === 0 ? (
-          <View style={[styles.emptyCard, styles.clayCard]}>
+          <View style={[styles.emptyCard, styles_ext.clayCard]}>
             <Text style={styles.emptyEmoji}>🪙</Text>
             <Text style={styles.emptyTitle}>No loans yet</Text>
             <Text style={styles.emptySubtitle}>
@@ -232,7 +233,7 @@ export default function Dashboard() {
             </Pressable>
           </View>
         ) : (
-          <View style={styles.loanList}>
+          <View style={[styles.loanList, styles_ext.clayCardLight]}>
             {recentLoans.map((loan) => {
               const overdue =
                 !loan.is_repaid &&
@@ -310,30 +311,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: BG,
-  },
-  clayCard: {
-    boxShadow: [
-      {
-        offsetX: 8,
-        offsetY: 12,
-        blurRadius: 16,
-        color: 'rgba(0, 0, 0, 0.2)',
-      },
-      {
-        offsetX: 6,
-        offsetY: 6,
-        blurRadius: 10,
-        color: 'rgba(255, 255, 255, 0.45)',
-        inset: true,
-      },
-      {
-        offsetX: -8,
-        offsetY: -8,
-        blurRadius: 12,
-        color: 'rgba(0, 0, 0, 0.25)',
-        inset: true,
-      },
-    ],
   },
   content: {
     paddingHorizontal: 22,
@@ -512,9 +489,7 @@ const styles = StyleSheet.create({
   loanList: {
     backgroundColor: '#FFFFFF',
     borderRadius: 22,
-    paddingHorizontal: 14,
-    borderWidth: 1,
-    borderColor: '#EFEDF7',
+    padding: 14,
   },
   loanItem: {
     flexDirection: 'row',

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
@@ -16,6 +15,7 @@ import {
 import { useRouter } from 'expo-router';
 import { apiRequest } from '../services/api';
 import BackTract_btn from '@/components/BackTract_btn';
+import { styles_ext } from '@/components/clay_card';
 
 const PURPLE = '#9482DB';
 const BG = '#F7F6FC';
@@ -130,7 +130,7 @@ export default function AddLoan() {
         </View>
 
         {/* Amount preview */}
-        <View style={styles.amountCard}>
+        <View style={[styles.amountCard, styles_ext.clayCard]}>
           <Text style={styles.amountLabel}>YOU ARE LENDING</Text>
           <View style={styles.amountPreview}>
             <Text style={styles.rupee}>₹</Text>
@@ -146,7 +146,7 @@ export default function AddLoan() {
         </View>
 
         {/* Form */}
-        <View style={styles.formCard}>
+        <View style={[styles.formCard, styles_ext.clayCard]}>
           <Text style={styles.formTitle}>Loan details</Text>
 
           <Text style={styles.label}>FRIEND'S NAME</Text>
@@ -155,7 +155,7 @@ export default function AddLoan() {
             onChangeText={setFriendName}
             placeholder="e.g. Rahul Sharma"
             placeholderTextColor="#AAA6BC"
-            style={styles.input}
+            style={[styles.input]}
             autoCapitalize="words"
             maxLength={100}
             returnKeyType="next"
@@ -313,8 +313,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 23,
     padding: 20,
-    borderWidth: 1,
-    borderColor: BORDER,
+    paddingVertical: 32,
   },
   formTitle: {
     color: DARK,
