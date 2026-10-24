@@ -200,7 +200,7 @@ export default function Dashboard() {
         {/* Recent loans */}
         <View style={[styles.sectionHeader]}>
           <Text style={styles.sectionTitle}>Recent loans</Text>
-          <Pressable onPress={() => router.push('/loans' as Href)}>
+          <Pressable onPress={() => router.push('/loan' as Href)}>
             <Text style={styles.viewAll}>View all →</Text>
           </Pressable>
         </View>
