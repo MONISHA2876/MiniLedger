@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
+import {saveToken} from '@/services/auth';
 
 import BackTract_btn from '@/components/BackTract_btn';
 import InputBox from '@/components/InputBox';
@@ -96,11 +96,12 @@ export default function VerifyOtp() {
         throw new Error('Authentication token was not returned by the server.');
       }
 
-      await SecureStore.setItemAsync('authToken', data.token);
+      await saveToken(data.token);
 
       setStatus('right');
 
       timer.current = setTimeout(() => {
+
         router.dismissTo('/(tabs)/dashboard');
       }, 500);
     } catch (error) {
